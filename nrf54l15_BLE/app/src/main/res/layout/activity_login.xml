@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/ios_grouped_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="72dp"
+        android:paddingBottom="32dp">
+
+        <!-- Wordmark -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Myo"
+                android:textColor="@color/myo_teal"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sense"
+                android:textColor="@color/sense_dark"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/emg_waveform"
+            android:scaleType="fitXY"
+            android:contentDescription="EMG waveform" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/login_tagline"
+            android:textColor="@color/ios_secondary_label"
+            android:textSize="14sp" />
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_email"
+            android:textColor="@color/ios_secondary_label"
+            android:textSize="12sp"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="you@email.com"
+            android:background="@drawable/bg_rounded_8"
+            android:backgroundTint="@color/ios_system_fill"
+            android:padding="12dp"
+            android:textColor="@color/ios_label"
+            android:textColorHint="@color/ios_secondary_label"
+            android:inputType="textEmailAddress"
+            android:textSize="15sp"
+            android:layout_marginBottom="16dp"
+            android:singleLine="true" />
+
+        <!-- Password -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_password"
+            android:textColor="@color/ios_secondary_label"
+            android:textSize="12sp"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_password"
+            android:background="@drawable/bg_rounded_8"
+            android:backgroundTint="@color/ios_system_fill"
+            android:padding="12dp"
+            android:textColor="@color/ios_label"
+            android:textColorHint="@color/ios_secondary_label"
+            android:inputType="textPassword"
+            android:textSize="15sp"
+            android:layout_marginBottom="8dp"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ios_red"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            style="@style/Widget.MyoSense.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/login_sign_in"
+            android:backgroundTint="@color/ios_blue"
+            android:textColor="@color/white" />
+
+        <!-- Divider -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="16dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/ios_separator" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="or"
+                android:textColor="@color/ios_secondary_label"
+                android:textSize="11sp"
+                android:paddingHorizontal="10dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/ios_separator" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDemo"
+            style="@style/Widget.MyoSense.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_play_circle"
+            app:iconGravity="textStart"
+            app:iconTint="@color/ios_blue"
+            android:text="@string/login_try_demo"
+            android:backgroundTint="@color/tint_blue_08"
+            android:textColor="@color/ios_blue"
+            xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/login_demo_hint"
+            android:textColor="@color/ios_secondary_label"
+            android:textSize="11sp"
+            android:gravity="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_disclaimer"
+            android:textColor="@color/ios_secondary_label"
+            android:textSize="11sp"
+            android:gravity="center" />
+    </LinearLayout>
+</ScrollView>

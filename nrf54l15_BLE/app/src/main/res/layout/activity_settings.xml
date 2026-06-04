@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ios_grouped_background">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.MyoSense.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Settings" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Account -->
+            <TextView style="@style/SettingsHeader" android:text="ACCOUNT" />
+            <androidx.cardview.widget.CardView style="@style/Widget.MyoSense.Card"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout style="@style/SettingsRow">
+                        <TextView style="@style/SettingsRowLabel" android:text="Email" />
+                        <TextView android:id="@+id/tvEmail" style="@style/SettingsRowValue" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout style="@style/SettingsRow">
+                        <TextView style="@style/SettingsRowLabel" android:text="Role" />
+                        <TextView android:id="@+id/tvRole" style="@style/SettingsRowValue" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Demo -->
+            <TextView style="@style/SettingsHeader" android:text="DEMO MODE" />
+            <androidx.cardview.widget.CardView style="@style/Widget.MyoSense.Card"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Demo Mode" android:textColor="@color/ios_label" android:textSize="15sp" />
+                        <TextView android:id="@+id/tvDemoSub" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Stream a synthetic EMG signal instead of pairing hardware."
+                            android:textColor="@color/ios_secondary_label" android:textSize="12sp" />
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchDemo"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Demo Mode lets you explore MyoSense without a paired sensor. Use it for training and demos."
+                android:textColor="@color/ios_secondary_label" android:textSize="12sp"
+                android:paddingHorizontal="6dp" android:paddingTop="6dp" />
+
+            <!-- About -->
+            <TextView style="@style/SettingsHeader" android:text="ABOUT" />
+            <androidx.cardview.widget.CardView style="@style/Widget.MyoSense.Card"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout style="@style/SettingsRow">
+                        <TextView style="@style/SettingsRowLabel" android:text="App" />
+                        <TextView style="@style/SettingsRowValue" android:text="MyoSense" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout style="@style/SettingsRow">
+                        <TextView style="@style/SettingsRowLabel" android:text="Version" />
+                        <TextView android:id="@+id/tvVersion" style="@style/SettingsRowValue" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSignOut"
+                style="@style/Widget.MyoSense.Button.Tonal"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Sign Out" android:textColor="@color/ios_red"
+                android:backgroundTint="@color/ios_secondary_background" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

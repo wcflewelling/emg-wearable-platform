@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_settings" android:title="Settings" android:showAsAction="never" />
+    <item android:id="@+id/action_how_to" android:title="How to Use" android:showAsAction="never" />
+    <item android:id="@+id/action_sign_out" android:title="Sign Out" android:showAsAction="never" />
+</menu>

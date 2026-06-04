@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ios_grouped_background">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.MyoSense.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Companion Access" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="24dp">
+
+            <ImageView android:layout_width="56dp" android:layout_height="56dp"
+                android:layout_marginTop="16dp" android:src="@drawable/ic_more"
+                app:tint="@color/ios_blue" android:contentDescription="invite" />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" android:text="Invite Companion"
+                android:textColor="@color/ios_label" android:textStyle="bold" android:textSize="22sp" />
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Your companion will see a simplified live view. They won't have access to raw data or session exports."
+                android:textColor="@color/ios_secondary_label" android:textSize="14sp" android:gravity="center"
+                android:paddingHorizontal="8dp" />
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="24dp" android:text="Companion Email"
+                android:textColor="@color/ios_secondary_label" android:textSize="12sp" />
+            <EditText android:id="@+id/etEmail"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="name@email.com" android:inputType="textEmailAddress" android:singleLine="true"
+                android:background="@drawable/bg_rounded_8" android:backgroundTint="@color/ios_system_fill"
+                android:padding="12dp" android:textColor="@color/ios_label" android:textColorHint="@color/ios_secondary_label"
+                android:layout_marginTop="6dp" />
+
+            <TextView android:id="@+id/tvResult"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" android:gravity="center"
+                android:textColor="@color/ios_green" android:textSize="14sp" android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSend"
+                style="@style/Widget.MyoSense.Button"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Send Invite" android:backgroundTint="@color/ios_blue" android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

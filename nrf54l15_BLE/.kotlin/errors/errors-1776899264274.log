@@ -1,0 +1,14 @@
+kotlin version: 2.0.21
+error message: The daemon has terminated unexpectedly on startup attempt #1 with error code: 1. The daemon process output:
+    ... (42 more lines)
+    43. 	at org.jetbrains.kotlin.daemon.KotlinCompileDaemonBase.mainImpl$lambda$3(KotlinCompileDaemon.kt:158)
+    44. 	at org.jetbrains.kotlin.daemon.KotlinCompileDaemonBase.runSynchronized(KotlinCompileDaemon.kt:93)
+    45. 	at org.jetbrains.kotlin.daemon.KotlinCompileDaemonBase.mainImpl(KotlinCompileDaemon.kt:121)
+    46. 	at org.jetbrains.kotlin.daemon.KotlinCompileDaemon.main(KotlinCompileDaemon.kt:191)
+    47. Caused by: java.io.IOException: No space left on device
+    48. 	at java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method)
+    49. 	at java.base/java.io.UnixFileSystem.createFileExclusively(Unknown Source)
+    50. 	at java.base/java.io.File.createNewFile(Unknown Source)
+    51. 	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.<init>(CompileServiceImpl.kt:247)
+    52. 	... 6 more
+

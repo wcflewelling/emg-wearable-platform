@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_monitor"
+        android:icon="@drawable/ic_monitor"
+        android:title="Monitor" />
+    <item
+        android:id="@+id/tab_recordings"
+        android:icon="@drawable/ic_folder"
+        android:title="Recordings" />
+    <item
+        android:id="@+id/tab_map"
+        android:icon="@drawable/ic_body"
+        android:title="Electrode Map" />
+</menu>

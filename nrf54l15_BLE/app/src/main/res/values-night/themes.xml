@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- MyoSense ships a single light appearance to match the iOS app, so the
+         night variant intentionally mirrors the light theme. -->
+    <style name="Theme.MyoSense" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/ios_blue</item>
+        <item name="colorPrimaryVariant">@color/ios_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/myo_teal</item>
+        <item name="colorSecondaryVariant">@color/sense_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:colorBackground">@color/ios_grouped_background</item>
+        <item name="colorSurface">@color/ios_secondary_background</item>
+        <item name="android:windowBackground">@color/ios_grouped_background</item>
+        <item name="android:statusBarColor">@color/ios_grouped_background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@color/ios_secondary_background</item>
+    </style>
+</resources>

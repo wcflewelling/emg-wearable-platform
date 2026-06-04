@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">MyoSense</string>
+
+    <string-array name="side_options">
+        <item>Left</item>
+        <item>Both</item>
+        <item>Right</item>
+    </string-array>
+
+    <!-- Auth -->
+    <string name="action_sign_out">Sign out</string>
+    <string name="login_tagline">See your muscles fire, in real time</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_sign_in">Sign In</string>
+    <string name="login_try_demo">Try Demo Mode</string>
+    <string name="login_demo_hint">Demo Mode uses a synthetic EMG signal — no sensor, no sign-in.</string>
+    <string name="login_disclaimer">A wellness and biofeedback tool. Not a medical device.</string>
+
+    <!-- Activity levels -->
+    <string name="activity_label">Activity</string>
+
+    <!-- Demo -->
+    <string name="demo_mode">Demo Mode</string>
+    <string name="demo_banner_body">Synthetic EMG signal — no sensor connected.</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/demoBannerRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_rounded_12"
+    android:backgroundTint="@color/tint_orange_10"
+    android:padding="12dp"
+    android:layout_marginTop="8dp"
+    android:visibility="gone">
+
+    <ImageView
+        android:layout_width="20dp" android:layout_height="20dp"
+        android:src="@drawable/ic_play_circle"
+        android:contentDescription="demo" />
+
+    <LinearLayout
+        android:layout_width="0dp" android:layout_height="wrap_content"
+        android:layout_weight="1" android:orientation="vertical"
+        android:layout_marginStart="10dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="DEMO MODE" android:textColor="@color/ios_orange"
+            android:textStyle="bold" android:textSize="12sp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/demo_banner_body" android:textColor="@color/ios_secondary_label"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnExitDemo"
+        style="@style/Widget.MyoSense.Button.Tonal"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Exit" android:textColor="@color/ios_orange"
+        android:backgroundTint="@color/tint_orange_10"
+        android:minWidth="0dp" android:minHeight="0dp"
+        android:paddingHorizontal="14dp" android:paddingVertical="4dp"
+        android:textSize="13sp" />
+</LinearLayout>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ios_grouped_background">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.MyoSense.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStartWithNavigation="0dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Myo" android:textColor="@color/myo_teal"
+                android:textSize="20sp" android:textStyle="bold" android:fontFamily="sans-serif-medium" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Sense" android:textColor="@color/sense_dark"
+                android:textSize="20sp" android:textStyle="bold" android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <!-- Demo banner -->
+            <include layout="@layout/view_demo_banner" android:id="@+id/demoBanner" />
+
+            <!-- Connection header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView android:id="@+id/pillLeft"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Left: Disconnected"
+                    android:textSize="12sp" android:textColor="@color/ios_red"
+                    android:background="@drawable/bg_rounded_8" android:backgroundTint="@color/tint_red_10"
+                    android:paddingHorizontal="10dp" android:paddingVertical="5dp" />
+
+                <Space android:layout_width="6dp" android:layout_height="wrap_content" />
+
+                <TextView android:id="@+id/pillRight"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Right: Disconnected"
+                    android:textSize="12sp" android:textColor="@color/ios_red"
+                    android:background="@drawable/bg_rounded_8" android:backgroundTint="@color/tint_red_10"
+                    android:paddingHorizontal="10dp" android:paddingVertical="5dp" />
+
+                <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+
+                <TextView android:id="@+id/pillRec"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="● REC"
+                    android:textSize="12sp" android:textStyle="bold" android:textColor="@color/ios_red"
+                    android:background="@drawable/bg_rounded_8" android:backgroundTint="@color/tint_red_10"
+                    android:paddingHorizontal="10dp" android:paddingVertical="5dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Alarm banner -->
+            <LinearLayout android:id="@+id/alarmBanner"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_rounded_12" android:backgroundTint="@color/tint_red_10"
+                android:padding="12dp" android:layout_marginTop="12dp" android:visibility="gone">
+                <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                    android:src="@drawable/ic_warning" android:contentDescription="warning" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp" android:text="LOW SIGNAL — Check sensor placement"
+                    android:textColor="@color/ios_red" android:textStyle="bold" android:textSize="13sp" />
+            </LinearLayout>
+
+            <!-- Session banner -->
+            <androidx.cardview.widget.CardView
+                style="@style/Widget.MyoSense.Card"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+                <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
+                    <LinearLayout
+                        android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:id="@+id/tvSessionTitle"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="No Session" android:textColor="@color/ios_secondary_label"
+                            android:textStyle="bold" android:textSize="15sp" />
+                        <TextView android:id="@+id/tvSessionSub"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Tap Start to begin recording"
+                            android:textColor="@color/ios_secondary_label" android:textSize="12sp" />
+                    </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSession"
+                        style="@style/Widget.MyoSense.Button"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Start" android:backgroundTint="@color/ios_green"
+                        android:textColor="@color/white" android:minWidth="0dp"
+                        android:paddingHorizontal="20dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Live chart card -->
+            <androidx.cardview.widget.CardView
+                style="@style/Widget.MyoSense.Card"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+                <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Live EMG Signal"
+                            android:textColor="@color/ios_label" android:textStyle="bold" android:textSize="14sp" />
+                        <View android:layout_width="16dp" android:layout_height="3dp"
+                            android:background="@color/ios_blue" android:layout_marginEnd="4dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="CH1" android:textColor="@color/ios_secondary_label" android:textSize="11sp"
+                            android:layout_marginEnd="12dp" />
+                        <View android:layout_width="16dp" android:layout_height="3dp"
+                            android:background="@color/ios_red" android:layout_marginEnd="4dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="CH2" android:textColor="@color/ios_secondary_label" android:textSize="11sp" />
+                    </LinearLayout>
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/chart"
+                        android:layout_width="match_parent" android:layout_height="170dp"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Channel cards -->
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginTop="12dp"
+                android:baselineAligned="false">
+
+                <!-- CH1 -->
+                <androidx.cardview.widget.CardView
+                    style="@style/Widget.MyoSense.Card"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:layout_marginEnd="6dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="14dp">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:gravity="center_vertical">
+                            <View android:layout_width="8dp" android:layout_height="8dp"
+                                android:background="@drawable/bg_circle" android:backgroundTint="@color/ios_blue" />
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:layout_marginStart="5dp" android:text="Channel 1"
+                                android:textColor="@color/ios_blue" android:textStyle="bold" android:textSize="12sp" />
+                            <TextView android:id="@+id/ch1Level"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="Low" android:textSize="11sp" android:textStyle="bold"
+                                android:background="@drawable/bg_rounded_6" android:backgroundTint="@color/tint_red_10"
+                                android:textColor="@color/ios_red"
+                                android:paddingHorizontal="7dp" android:paddingVertical="3dp" />
+                        </LinearLayout>
+                        <FrameLayout android:layout_width="match_parent" android:layout_height="6dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_rounded_4" android:backgroundTint="@color/ios_system_fill">
+                            <View android:id="@+id/ch1Bar" android:layout_width="match_parent" android:layout_height="6dp"
+                                android:background="@drawable/bg_rounded_4" android:backgroundTint="@color/ios_red"
+                                android:scaleX="0" android:transformPivotX="0dp" />
+                        </FrameLayout>
+                        <TextView android:id="@+id/ch1Tkeo"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp" android:text="0.00000 V²"
+                            android:fontFamily="monospace" android:textColor="@color/ios_secondary_label" android:textSize="11sp" />
+                        <TextView android:id="@+id/ch1Temp"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp" android:text="🌡 —"
+                            android:textColor="@color/ios_secondary_label" android:textSize="12sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- CH2 -->
+                <androidx.cardview.widget.CardView
+                    style="@style/Widget.MyoSense.Card"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:layout_marginStart="6dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="14dp">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:gravity="center_vertical">
+                            <View android:layout_width="8dp" android:layout_height="8dp"
+                                android:background="@drawable/bg_circle" android:backgroundTint="@color/ios_red" />
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:layout_marginStart="5dp" android:text="Channel 2"
+                                android:textColor="@color/ios_red" android:textStyle="bold" android:textSize="12sp" />
+                            <TextView android:id="@+id/ch2Level"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="Low" android:textSize="11sp" android:textStyle="bold"
+                                android:background="@drawable/bg_rounded_6" android:backgroundTint="@color/tint_red_10"
+                                android:textColor="@color/ios_red"
+                                android:paddingHorizontal="7dp" android:paddingVertical="3dp" />
+                        </LinearLayout>
+                        <FrameLayout android:layout_width="match_parent" android:layout_height="6dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_rounded_4" android:backgroundTint="@color/ios_system_fill">
+                            <View android:id="@+id/ch2Bar" android:layout_width="match_parent" android:layout_height="6dp"
+                                android:background="@drawable/bg_rounded_4" android:backgroundTint="@color/ios_red"
+                                android:scaleX="0" android:transformPivotX="0dp" />
+                        </FrameLayout>
+                        <TextView android:id="@+id/ch2Tkeo"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp" android:text="0.00000 V²"
+                            android:fontFamily="monospace" android:textColor="@color/ios_secondary_label" android:textSize="11sp" />
+                        <TextView android:id="@+id/ch2Temp"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp" android:text="🌡 —"
+                            android:textColor="@color/ios_secondary_label" android:textSize="12sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- Data section -->
+            <androidx.cardview.widget.CardView
+                style="@style/Widget.MyoSense.Card"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+                <LinearLayout android:id="@+id/rowRecordings"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:padding="16dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                        android:src="@drawable/ic_folder" app:tint="@color/ios_blue" android:contentDescription="recordings" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:layout_marginStart="12dp" android:text="View Recorded Sessions"
+                        android:textColor="@color/ios_label" android:textSize="14sp" />
+                    <ImageView android:layout_width="16dp" android:layout_height="16dp"
+                        android:src="@drawable/ic_chevron_right" android:contentDescription="open" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Connect button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConnect"
+                style="@style/Widget.MyoSense.Button"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Connect" android:backgroundTint="@color/ios_blue" android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ios_secondary_background"
+        app:elevation="8dp"
+        app:itemIconTint="@color/bottom_nav_tint"
+        app:itemTextColor="@color/bottom_nav_tint"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_pro_bottom" />
+</LinearLayout>

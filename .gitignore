@@ -1,0 +1,36 @@
+# Android build outputs
+build/
+.gradle/
+local.properties
+*.apk
+*.aab
+*.ap_
+
+# Gradle wrapper jar (keep gradlew scripts, not the jar)
+gradle/wrapper/gradle-wrapper.jar
+
+# Firmware build outputs
+android/build/
+android/build_1/
+android/build_2/
+
+# HTML exports
+projEMG/exportToHTML/
+
+# Firebase credentials
+google-services.json
+projEMG/app/google-services.json
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Secrets
+*.jks
+*.keystore
+secrets/
