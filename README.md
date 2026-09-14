@@ -1,44 +1,53 @@
-# MyoSense — Android
+# EMG Wearable Platform
 
-**Android client for the MyoSense dual-channel surface-EMG platform.**
+**Dual-channel surface-EMG sensing, hardware to app — nRF54L15 firmware, BLE transport, and an Android client.**
 
-Streams EMG from an nRF54L15 over BLE, runs Teager–Kaiser Energy Operator conditioning, charts it live, and exports CSV recordings. The iOS client and the clinical (FNP) framing of this platform are kept private.
+Streams EMG from a Nordic nRF54L15 over BLE, runs Teager–Kaiser Energy Operator conditioning to separate muscle activation from motion artifact, charts it live, and exports CSV recordings.
 
-> ⚠️ **Research and educational use only. Not a medical device.**
+> ⚠️ **Research and educational use only. Not a medical device, and it has no regulatory clearance.** Nothing here should be used to make a clinical decision.
 
 ---
 
-## Layout
+## What's in here
 
 ```
 nrf54l15_BLE/
-├── app/       active Android client — Views/XML, MPAndroidChart
+├── app/       Android client — Kotlin, Views/XML, MPAndroidChart
 ├── projEMG/   earlier client — Jetpack Compose, Room, Ktor
-└── android/   nRF54L15 firmware (Zephyr / NCS, C)
+└── android/   nRF54L15 firmware — Zephyr / nRF Connect SDK, C
 ```
 
-**Two Android codebases live side by side.** They target the same hardware but were started at different times and have never been merged. `app/` is the active one — it was reworked to reach parity with the iOS client. `projEMG/` is the older Compose attempt, kept because it has architecture worth salvaging.
+This repo holds **both halves of the embedded side**: the firmware running on the sensor and the Android app that consumes it. The iOS client and the clinical framing of the project live elsewhere and are not public.
 
-Picking one is an open decision, and it's documented as such rather than quietly left for whoever reads the repo next.
+## The signal problem
 
-## What `app/` does
+Sampling EMG is the easy part. The hard part is that the wearer moves, and motion artifact lands in the same amplitude range as the muscle signal you care about.
+
+`Tkeo.kt` implements Teager–Kaiser Energy Operator conditioning, which emphasizes instantaneous energy — the product of amplitude *and* frequency — so a genuine activation burst separates from the low-frequency, high-amplitude swing of the limb moving. That single stage is what makes the activation classifier usable rather than noise-triggered.
+
+## The Android client
 
 - **BLE central** — connects to the nRF54L15, two channels
-- **TKEO pipeline** (`Tkeo.kt`) — activation detection from raw EMG
 - **Live charting** with connection state, activity bars, and alarm banners
-- **Two roles** — *Pro* (monitor + recordings + electrode map) and *Companion* (a single large activity readout)
-- **Demo mode** — `DemoSignalGenerator` synthesizes EMG so the app runs with no hardware
+- **Two roles** — *Pro* (monitor, recordings, electrode map) and *Companion* (one large activity readout)
+- **Demo mode** — `DemoSignalGenerator` synthesizes EMG so the app runs with no hardware attached, which also makes the UI testable in CI
 - **Recordings** — every session written to CSV in `Sessions/`, browsable in-app with share and delete
 - **Body map** — muscle placement guide for electrode positioning
 
-Managers are split cleanly: `EmgManager` (BLE, TKEO, alarms, demo), `SessionManager` (CSV lifecycle), `Tkeo` (signal math).
+Managers are split by concern: `EmgManager` (BLE, TKEO, alarms, demo), `SessionManager` (CSV lifecycle), `Tkeo` (signal math). No backend — auth is a local stub and recordings never leave the device.
 
-No backend — auth is a local stub and recordings stay on the device.
+## Two clients, one open decision
+
+`app/` and `projEMG/` are two Android codebases targeting the same hardware, started at different times and never merged. `app/` is the active one. `projEMG/` is the earlier Compose attempt, kept for architecture worth salvaging.
+
+Picking one is still an open call, and it's written down here rather than left for whoever reads the repo next to discover.
 
 ## Building
 
-Open `nrf54l15_BLE/` in Android Studio. Needs the Android SDK and JDK 17. Gradle sync, then build `app`.
+Open `nrf54l15_BLE/` in Android Studio — needs the Android SDK and JDK 17. Gradle sync, then build `app`.
+
+The firmware under `android/` needs its own nRF Connect SDK / Zephyr workspace; the SDK tree itself is not vendored here.
 
 ---
 
-Built by [Wyatt Flewelling](https://github.com/wcflewelling) · UW–Madison Biomedical Engineering
+Built by [Wyatt Flewelling](https://github.com/wcflewelling) · Biomedical Engineering, UW–Madison
