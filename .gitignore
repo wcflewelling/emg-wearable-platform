@@ -34,3 +34,6 @@ projEMG/app/google-services.json
 *.jks
 *.keystore
 secrets/
+
+# Kotlin compiler daemon logs
+.kotlin/
