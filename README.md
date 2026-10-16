@@ -13,7 +13,6 @@ Streams EMG from a Nordic nRF54L15 over BLE, runs Teager–Kaiser Energy Operato
 ```
 nrf54l15_BLE/
 ├── app/       Android client — Kotlin, Views/XML, MPAndroidChart
-├── projEMG/   earlier client — Jetpack Compose, Room, Ktor
 └── android/   nRF54L15 firmware — Zephyr / nRF Connect SDK, C
 ```
 
@@ -38,7 +37,7 @@ Managers are split by concern: `EmgManager` (BLE, TKEO, alarms, demo), `SessionM
 
 ## Two clients, one open decision
 
-`app/` and `projEMG/` are two Android codebases targeting the same hardware, started at different times and never merged. `app/` is the active one. `projEMG/` is the earlier Compose attempt, kept for architecture worth salvaging.
+`app/` and `projEMG` are two Android codebases targeting the same hardware, started at different times and never merged. `app/` is the active one and the only one in this repo. `projEMG` is the earlier Jetpack Compose / Room / Ktor attempt, kept in a separate private repo for architecture worth salvaging.
 
 Picking one is still an open call, and it's written down here rather than left for whoever reads the repo next to discover.
 
