@@ -256,9 +256,24 @@ class EmgManager(
             }
             adcChar    = service.getCharacteristic(ADC_CHAR_UUID)
             sensorChar = service.getCharacteristic(SENSOR_CHAR_UUID)
+            // Android allows one outstanding GATT op; the sensor CCCD write is
+            // chained from onDescriptorWrite once the ADC one completes.
             enableNotify(gatt, adcChar)
-            mainHandler.postDelayed({ enableNotify(gatt, sensorChar) }, 300)
             listener?.onStatus("Connected & streaming")
+        }
+
+        @SuppressLint("MissingPermission")
+        override fun onDescriptorWrite(
+            gatt: BluetoothGatt,
+            descriptor: BluetoothGattDescriptor,
+            status: Int
+        ) {
+            if (status != BluetoothGatt.GATT_SUCCESS) {
+                Log.w(TAG, "CCCD write failed for ${descriptor.characteristic.uuid}: $status")
+            }
+            if (descriptor.characteristic.uuid == ADC_CHAR_UUID) {
+                enableNotify(gatt, sensorChar)
+            }
         }
 
         override fun onCharacteristicChanged(
@@ -309,8 +324,10 @@ class EmgManager(
         val p2s = arrayOfNulls<Float>(BATCH_SAMPLES)
 
         for (i in 0 until BATCH_SAMPLES) {
-            val r1 = bb.short.toInt() and 0xFFFF
-            val r2 = bb.short.toInt() and 0xFFFF
+            // Firmware sends signed int16; single-ended SAADC can dip slightly
+            // below 0 near ground, which must stay negative, not wrap to ~65535.
+            val r1 = bb.short.toInt()
+            val r2 = bb.short.toInt()
             v1s[i] = r1 * ADC_VOLTS_PER_COUNT
             v2s[i] = r2 * ADC_VOLTS_PER_COUNT
             p1s[i] = tkeo1.push(v1s[i])

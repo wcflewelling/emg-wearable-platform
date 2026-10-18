@@ -93,10 +93,11 @@ class SessionManager(
                 ww.write(sampleIdx.toString());           ww.write(",")
                 ww.write(tsUs.toString());                ww.write(",")
                 ww.write(phoneMs.toString());             ww.write(",")
-                ww.write("%.6f".format(v1s[i]));          ww.write(",")
-                ww.write("%.6f".format(v2s[i]));          ww.write(",")
-                ww.write(p1s[i]?.let { "%.6e".format(it) } ?: ""); ww.write(",")
-                ww.write(p2s[i]?.let { "%.6e".format(it) } ?: ""); ww.write("\n")
+                // Locale.US: a decimal comma (es, de, fr, …) would split columns.
+                ww.write("%.6f".format(Locale.US, v1s[i]));          ww.write(",")
+                ww.write("%.6f".format(Locale.US, v2s[i]));          ww.write(",")
+                ww.write(p1s[i]?.let { "%.6e".format(Locale.US, it) } ?: ""); ww.write(",")
+                ww.write(p2s[i]?.let { "%.6e".format(Locale.US, it) } ?: ""); ww.write("\n")
                 sampleIdx++
             }
             if (sampleIdx % 8000L < v1s.size) ww.flush()
@@ -117,8 +118,8 @@ class SessionManager(
         partStartMs = System.currentTimeMillis()
         val w = BufferedWriter(FileWriter(file))
         w.write("# MyoSense Recording\n")
-        w.write("# Session Tag: $sessionTag\n")
-        w.write("# Notes: $notes\n")
+        w.write("# Session Tag: ${oneLine(sessionTag)}\n")
+        w.write("# Notes: ${oneLine(notes)}\n")
         w.write("# Side: $side\n")
         w.write("# Part: $partNum\n")
         w.write("# StartTime: $stamp\n")
@@ -127,6 +128,9 @@ class SessionManager(
         writer = w
         Log.i(TAG, "Opened part $partNum: ${file.name}")
     }
+
+    /** Header values must stay on their `#` line or they corrupt the CSV body. */
+    private fun oneLine(s: String) = s.replace(Regex("[\\r\\n]+"), " ")
 
     companion object {
         private const val TAG = "SessionManager"
