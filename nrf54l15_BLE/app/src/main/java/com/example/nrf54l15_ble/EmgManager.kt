@@ -427,10 +427,11 @@ class EmgManager(
         const val BATCH_SAMPLES = 8
 
         /**
-         * nRF54L15 SAADC conversion: gain=1/4, internal ref=1.024 V bandgap, 14-bit.
-         * Full-scale = 1.024 / 0.25 = 4.096 V → 16384 codes → 250 µV / LSB.
+         * nRF54L15 SAADC conversion: gain=1/4, internal ref=0.9 V (nRF54L15
+         * datasheet, SAADC REFSEL), 14-bit single-ended.
+         * Full-scale = 0.9 / 0.25 = 3.6 V → 16384 codes → ~219.7 µV / LSB.
          */
-        const val ADC_VOLTS_PER_COUNT = (1.024f / 0.25f) / 16384f
+        const val ADC_VOLTS_PER_COUNT = (0.9f / 0.25f) / 16384f
 
         /** Matches iOS `ActivityLevel.lowThreshold = 5e-5 V²`. */
         const val LOW_ALARM_THRESHOLD = 5e-5
