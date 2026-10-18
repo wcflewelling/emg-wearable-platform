@@ -7,7 +7,7 @@ set -euo pipefail
 NCS_VERSION="v3.2.4"
 NCS_ROOT="/opt/nordic/ncs/${NCS_VERSION}"
 TOOLCHAIN_ROOT="/opt/nordic/ncs/toolchains/185bb0e3b6"
-PROJECT_DIR="/Users/wyattflew7/android"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BOARD="xiao_nrf54l15/nrf54l15/cpuapp"
 
 export PATH="${TOOLCHAIN_ROOT}/bin:${TOOLCHAIN_ROOT}/usr/bin:${TOOLCHAIN_ROOT}/usr/local/bin:${TOOLCHAIN_ROOT}/opt/bin:${TOOLCHAIN_ROOT}/opt/nanopb/generator-bin:${TOOLCHAIN_ROOT}/nrfutil/bin:${TOOLCHAIN_ROOT}/opt/zephyr-sdk/arm-zephyr-eabi/bin:${TOOLCHAIN_ROOT}/opt/zephyr-sdk/riscv64-zephyr-elf/bin:${PATH}"

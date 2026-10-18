@@ -3,7 +3,7 @@
 set -euo pipefail
 
 TOOLCHAIN_ROOT="/opt/nordic/ncs/toolchains/185bb0e3b6"
-PROJECT_DIR="/Users/wyattflew7/android"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 export PATH="${TOOLCHAIN_ROOT}/bin:${TOOLCHAIN_ROOT}/nrfutil/bin:${PATH}"
 export NRFUTIL_HOME="${TOOLCHAIN_ROOT}/nrfutil/home"

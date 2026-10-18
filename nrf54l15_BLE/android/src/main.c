@@ -1,5 +1,5 @@
 /*
- * nRF54L15 — Dual-Channel ADC (2 kHz) + on-die TEMP sensor over BLE
+ * nRF54L15 — Dual-Channel ADC (1 kHz per channel) + on-die TEMP sensor over BLE
  *
  * No external sensor — the "Sensor" characteristic reports the nRF54L15's
  * internal die temperature (via the TEMP peripheral / nrfx HAL). The
@@ -126,6 +126,26 @@ BT_GATT_SERVICE_DEFINE(wyatt_svc,
 static const struct bt_gatt_attr *adc_attr(void)   { return &wyatt_svc.attrs[1]; }
 static const struct bt_gatt_attr *sensor_attr(void) { return &wyatt_svc.attrs[4]; }
 
+static const struct bt_data ad[] = {
+    BT_DATA_BYTES(BT_DATA_FLAGS, BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR),
+    BT_DATA_BYTES(BT_DATA_NAME_COMPLETE,
+                  'W','Y','A','T','T',' ','n','R','F','5','4'),
+};
+
+/* Always advertise with the name — the Android client scans by name. */
+static int start_advertising(void)
+{
+    return bt_le_adv_start(BT_LE_ADV_CONN_FAST_1, ad, ARRAY_SIZE(ad), NULL, 0);
+}
+
+static void adv_restart_handler(struct k_work *work)
+{
+    ARG_UNUSED(work);
+    int err = start_advertising();
+    if (err) { LOG_ERR("adv restart: %d", err); }
+}
+static K_WORK_DEFINE(adv_restart_work, adv_restart_handler);
+
 /* MTU exchange callback — set flag when done */
 static void mtu_exchange_cb(struct bt_conn *conn, uint8_t err,
                              struct bt_gatt_exchange_params *params)
@@ -162,18 +182,19 @@ static void disconnected(struct bt_conn *conn, uint8_t reason)
     notify_adc_enabled    = false;
     notify_sensor_enabled = false;
     mtu_exchanged         = false;
-    bt_le_adv_start(BT_LE_ADV_CONN_FAST_1, NULL, 0, NULL, 0);
+}
+
+/* Restart advertising once the connection object is released. Doing it in
+ * disconnected() can fail because the old connection still holds its slot. */
+static void recycled(void)
+{
+    k_work_submit(&adv_restart_work);
 }
 
 BT_CONN_CB_DEFINE(conn_callbacks) = {
     .connected    = connected,
     .disconnected = disconnected,
-};
-
-static const struct bt_data ad[] = {
-    BT_DATA_BYTES(BT_DATA_FLAGS, BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR),
-    BT_DATA_BYTES(BT_DATA_NAME_COMPLETE,
-                  'W','Y','A','T','T',' ','n','R','F','5','4'),
+    .recycled     = recycled,
 };
 
 /* ── Threads ── */
@@ -207,9 +228,15 @@ static void adc_thread(void *p1, void *p2, void *p3)
          * 125 notifications/sec — comfortable inside a ~15 ms BLE
          * connection interval. */
         next_us += 1000;
-        int64_t now_us   = k_ticks_to_us_floor64(k_uptime_ticks());
-        int64_t sleep_us = next_us - now_us;
-        if (sleep_us > 0) k_busy_wait((uint32_t)sleep_us);
+        int64_t now_us = k_ticks_to_us_floor64(k_uptime_ticks());
+        if (next_us > now_us) {
+            /* Sleep (not busy-wait) so lower-priority threads like the
+             * TEMP reader get CPU time and the core can idle. An absolute
+             * deadline keeps the average rate exact despite tick rounding. */
+            k_sleep(K_TIMEOUT_ABS_US(next_us));
+        } else if (now_us - next_us > 10000) {
+            next_us = now_us;   /* fell far behind — resync, don't burst */
+        }
 
         /* Only sample when connected AND MTU is ready */
         if (!current_conn || !mtu_exchanged) {
@@ -292,8 +319,7 @@ int main(void)
     err = bt_enable(NULL);
     if (err) { LOG_ERR("bt_enable: %d", err); return err; }
 
-    err = bt_le_adv_start(BT_LE_ADV_CONN_FAST_1,
-                          ad, ARRAY_SIZE(ad), NULL, 0);
+    err = start_advertising();
     if (err) { LOG_ERR("adv_start: %d", err); return err; }
     LOG_INF("Advertising as 'WYATT nRF54'");
 
